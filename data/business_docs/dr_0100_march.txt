@@ -1,0 +1,14 @@
+Colorado DR 0100 - Retail Sales Tax Return (March 2025)
+---------------------------------------------------------
+Account Number: 33445566
+Business Name: Sweet Rise Bakery, Inc.
+Location: 789 Dough Ave, Denver, CO 80203
+
+Gross Sales: $31,400
+Non-taxable Sales: $2,100
+Net Taxable Sales: $29,300
+State Sales Tax (2.9%): $849.70
+Denver Sales Tax (4.81%): $1,408.33
+
+Total Tax Due: $2,258.03
+Filed On: 04/15/2025

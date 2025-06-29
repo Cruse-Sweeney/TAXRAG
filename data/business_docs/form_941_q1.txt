@@ -1,0 +1,15 @@
+Form 941 - Employer's Quarterly Federal Tax Return (Q1 2025)
+-------------------------------------------------------------
+Business Name: Sweet Rise Bakery, Inc.
+EIN: 87-6543210
+
+1. Number of employees: 7
+2. Wages, tips, and other compensation: $42,500
+3. Federal income tax withheld: $5,100
+5a. Social Security wages: $42,500 | Tax: $2,635
+5c. Medicare wages and tips: $42,500 | Tax: $616.25
+
+Total taxes before adjustments: $8,351.25
+Tax due: $8,351.25
+
+Signature: Maria L. Butter | Date: 04/30/2025

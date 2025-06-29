@@ -1,0 +1,14 @@
+Form 1099-NEC - Nonemployee Compensation
+----------------------------------------
+Payer: Sweet Rise Bakery, Inc.
+Address: 789 Dough Ave, Denver, CO 80203
+EIN: 87-6543210
+
+Recipient: Laura Crumbs
+Address: 456 Cherry Pie Ln, Aurora, CO 80012
+SSN: 123-45-6789
+
+Box 1 - Nonemployee compensation: $7,600
+Box 4 - Federal income tax withheld: $0
+
+Issued on: 01/28/2025
