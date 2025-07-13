@@ -7,7 +7,7 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 # -------------------------------
 # PAGE CONFIG
 # -------------------------------
-st.set_page_config(page_title="TaxRag", page_icon="🧾", layout="wide")
+st.set_page_config(page_title="TaxRag", page_icon="🯞", layout="wide")
 
 # -------------------------------
 # EMBEDDING MODEL SETUP
@@ -44,8 +44,9 @@ st.markdown("""
 # -------------------------------
 # DIRECTORIES
 # -------------------------------
-biz_doc_dir = "../data/business_docs"
-irs_doc_dir = "../data/irs_docs"
+base_dir = os.path.dirname(__file__)
+biz_doc_dir = os.path.join(base_dir, "..", "data", "business_docs")
+irs_doc_dir = os.path.join(base_dir, "..", "data", "irs_docs")
 os.makedirs(biz_doc_dir, exist_ok=True)
 
 # -------------------------------
@@ -79,7 +80,6 @@ tab_chat, tab_upload = st.tabs(["💬 Ask a Tax Question", "📄 Upload Document
 with tab_chat:
     st.markdown("""
         <style>
-        /* Fix chat input to bottom */
         .stChatInputContainer {
             position: fixed !important;
             bottom: 0;
@@ -90,14 +90,12 @@ with tab_chat:
             border-top: 1px solid #eee;
             z-index: 9999;
         }
-        /* Allow space for input at bottom */
         .chat-container {
             padding-bottom: 120px;
         }
         </style>
     """, unsafe_allow_html=True)
 
-    # Create scrollable chat container
     st.markdown('<div class="chat-container">', unsafe_allow_html=True)
 
     for msg in st.session_state.chat_history:
@@ -106,7 +104,6 @@ with tab_chat:
 
     st.markdown('</div>', unsafe_allow_html=True)
 
-    # Actual input (sticky)
     if prompt := st.chat_input("Type your question here..."):
         st.chat_message("user").write(prompt)
         st.session_state.chat_history.append({"role": "user", "content": prompt})
@@ -114,7 +111,7 @@ with tab_chat:
         with st.chat_message("assistant"):
             with st.spinner("Searching IRS guidelines and your documents..."):
                 index = load_index()
-                llm = Ollama(model="mistral")
+                llm = Ollama(model="Llama3.3-70B-Instruct", base_url="http://localhost:11434")
                 engine = index.as_query_engine(
                     llm=llm,
                     system_prompt=(
@@ -124,7 +121,6 @@ with tab_chat:
                 response = engine.query(prompt)
                 st.markdown(response.response)
                 st.session_state.chat_history.append({"role": "assistant", "content": response.response})
-
 
 # -------------------------------
 # UPLOAD TAB
@@ -142,9 +138,6 @@ with tab_upload:
             st.success(f"Saved: {file.name}")
 
     st.info("Documents will be used alongside IRS rules to answer your questions.")
-
-
-
 
         # Virutal env activation command
 # .\taxai-env\Scripts\Activate.ps1
