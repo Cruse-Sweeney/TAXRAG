@@ -1,0 +1,5 @@
+.venv
+taxai-env
+__pycache__/
+*.pyc
+.git
