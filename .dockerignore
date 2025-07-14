@@ -3,3 +3,4 @@ taxai-env
 __pycache__/
 *.pyc
 .git
+/workspace/data/**

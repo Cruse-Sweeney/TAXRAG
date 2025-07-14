@@ -44,10 +44,10 @@ st.markdown("""
 # -------------------------------
 # DIRECTORIES
 # -------------------------------
-base_dir = os.path.dirname(__file__)
-biz_doc_dir = os.path.join(base_dir, "..", "data", "business_docs")
-irs_doc_dir = os.path.join(base_dir, "..", "data", "irs_docs")
+biz_doc_dir = "/workspace/data/business_docs"
+irs_doc_dir = "/workspace/data/irs_docs"
 os.makedirs(biz_doc_dir, exist_ok=True)
+os.makedirs(irs_doc_dir, exist_ok=True)
 
 # -------------------------------
 # INDEXING FUNCTION
@@ -111,7 +111,7 @@ with tab_chat:
         with st.chat_message("assistant"):
             with st.spinner("Searching IRS guidelines and your documents..."):
                 index = load_index()
-                llm = Ollama(model="Llama3.3-70B-Instruct", base_url="http://localhost:11434")
+                llm = Ollama(model="llama3:70b-instruct", base_url="http://localhost:11434")
                 engine = index.as_query_engine(
                     llm=llm,
                     system_prompt=(
@@ -126,19 +126,26 @@ with tab_chat:
 # UPLOAD TAB
 # -------------------------------
 with tab_upload:
-    st.header("📥 Upload Your Business PDFs")
+    st.header("📥 Upload Your Documents")
 
-    uploaded_files = st.file_uploader("Upload PDFs", type=["pdf"], accept_multiple_files=True)
+    st.subheader("📄 Business PDFs")
+    biz_files = st.file_uploader("Upload business documents", type=["pdf"], accept_multiple_files=True, key="biz_uploader")
 
-    if uploaded_files:
-        for file in uploaded_files:
+    if biz_files:
+        for file in biz_files:
             save_path = os.path.join(biz_doc_dir, file.name)
             with open(save_path, "wb") as f:
                 f.write(file.getbuffer())
-            st.success(f"Saved: {file.name}")
+            st.success(f"Saved business doc: {file.name}")
 
-    st.info("Documents will be used alongside IRS rules to answer your questions.")
+    st.subheader("📘 IRS Reference PDFs")
+    irs_files = st.file_uploader("Upload IRS documents", type=["pdf"], accept_multiple_files=True, key="irs_uploader")
 
-        # Virutal env activation command
-# 
-#test
+    if irs_files:
+        for file in irs_files:
+            save_path = os.path.join(irs_doc_dir, file.name)
+            with open(save_path, "wb") as f:
+                f.write(file.getbuffer())
+            st.success(f"Saved IRS doc: {file.name}")
+
+    st.info("Uploaded documents are stored persistently and will be used in your queries.")
